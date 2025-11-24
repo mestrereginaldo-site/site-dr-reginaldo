@@ -82,145 +82,255 @@
         </div>
     </section>
 
-    <!-- Blog Content -->
-    <section class="blog-content section">
+    <!-- Blog List -->
+    <section class="blog-list section">
         <div class="container">
+            <div class="blog-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="aposentadoria">Aposentadoria</button>
+                <button class="filter-btn" data-filter="revisao">Revisão</button>
+                <button class="filter-btn" data-filter="legislacao">Legislação</button>
+            </div>
+
             <div class="blog-grid">
                 <!-- Artigo 1 -->
-                <article class="blog-article" id="reforma-previdencia">
-                    <div class="blog-article__header">
-                        <h2 class="blog-article__title">Reforma da Previdência: O que Mudou para Você</h2>
-                        <div class="blog-article__meta">
-                            <span class="blog-article__date">
+                <article class="blog-post" data-category="legislacao">
+                    <div class="blog-post__image">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="blog-post__content">
+                        <div class="blog-post__meta">
+                            <span class="blog-post__date">
                                 <i class="fas fa-calendar"></i>
                                 15 de Novembro, 2024
                             </span>
-                            <span class="blog-article__author">
+                            <span class="blog-post__read-time">
+                                <i class="fas fa-clock"></i>
+                                12 min de leitura
+                            </span>
+                        </div>
+                        <h2 class="blog-post__title">
+                            <a href="artigos/reforma-previdencia.html">Reforma da Previdência 2024: Guia Completo com as Últimas Alterações</a>
+                        </h2>
+                        <p class="blog-post__excerpt">
+                            Análise detalhada das mudanças na Reforma da Previdência, impactos nas aposentadorias e estratégias para garantir seus direitos. Inclui as últimas atualizações legislativas.
+                        </p>
+                        <div class="blog-post__footer">
+                            <span class="blog-post__author">
                                 <i class="fas fa-user"></i>
                                 Dr. Reginaldo Oliveira
                             </span>
-                        </div>
-                    </div>
-                    
-                    <div class="blog-article__content">
-                        <p>A Reforma da Previdência trouxe mudanças significativas que afetam milhões de brasileiros. Neste artigo, vamos analisar as principais alterações e como elas impactam seus direitos previdenciários.</p>
-                        
-                        <h3>Principais Mudanças</h3>
-                        <ul>
-                            <li><strong>Idade Mínima:</strong> Implementação de idade mínima para aposentadoria</li>
-                            <li><strong>Tempo de Contribuição:</strong> Novas regras para cálculo do tempo</li>
-                            <li><strong>Alíquotas:</strong> Alterações nas alíquotas de contribuição</li>
-                            <li><strong>Transição:</strong> Regras de transição para quem já contribuía</li>
-                        </ul>
-                        
-                        <h3>Impacto nos Benefícios</h3>
-                        <p>As mudanças afetam diretamente o valor dos benefícios e as condições de acesso. É fundamental entender como essas alterações impactam sua situação específica.</p>
-                        
-                        <div class="blog-article__cta">
-                            <p><strong>Precisa de ajuda com sua aposentadoria?</strong></p>
-                            <a href="index.html#contato" class="button button--primary">
-                                <i class="fas fa-phone-alt"></i>
-                                Agendar Consulta
+                            <a href="artigos/reforma-previdencia.html" class="blog-post__link">
+                                Ler Artigo <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 2 -->
-                <article class="blog-article" id="calculo-tempo-contribuicao">
-                    <div class="blog-article__header">
-                        <h2 class="blog-article__title">Como Calcular Seu Tempo de Contribuição</h2>
-                        <div class="blog-article__meta">
-                            <span class="blog-article__date">
+                <article class="blog-post" data-category="aposentadoria">
+                    <div class="blog-post__image">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="blog-post__content">
+                        <div class="blog-post__meta">
+                            <span class="blog-post__date">
                                 <i class="fas fa-calendar"></i>
                                 8 de Novembro, 2024
                             </span>
-                            <span class="blog-article__author">
+                            <span class="blog-post__read-time">
+                                <i class="fas fa-clock"></i>
+                                8 min de leitura
+                            </span>
+                        </div>
+                        <h2 class="blog-post__title">
+                            <a href="artigos/calculo-tempo-contribuicao.html">Como Calcular Tempo de Contribuição: Guia Prático 2024</a>
+                        </h2>
+                        <p class="blog-post__excerpt">
+                            Método passo a passo para calcular corretamente seu tempo de contribuição, incluindo períodos especiais e como comprovar tempo de serviço.
+                        </p>
+                        <div class="blog-post__footer">
+                            <span class="blog-post__author">
                                 <i class="fas fa-user"></i>
                                 Dr. Reginaldo Oliveira
                             </span>
-                        </div>
-                    </div>
-                    
-                    <div class="blog-article__content">
-                        <p>Calcular corretamente o tempo de contribuição é essencial para planejar sua aposentadoria. Neste guia prático, explico como fazer esse cálculo de forma precisa.</p>
-                        
-                        <h3>O que Conta como Tempo de Contribuição</h3>
-                        <ul>
-                            <li>Períodos trabalhados com carteira assinada</li>
-                            <li>Contribuição como facultativo</li>
-                            <li>Tempo de serviço militar</li>
-                            <li>Períodos de auxílio-doença e acidentário</li>
-                            <li>Licença-maternidade</li>
-                        </ul>
-                        
-                        <h3>Como Comprovar o Tempo</h3>
-                        <p>Documentos essenciais para comprovar seu tempo de contribuição junto ao INSS.</p>
-                        
-                        <div class="blog-article__tip">
-                            <h4>💡 Dica Importante:</h4>
-                            <p>Mantenha sempre atualizada sua Carteira de Trabalho e previdência Social (CTPS) e guarde todos os comprovantes de pagamento.</p>
+                            <a href="artigos/calculo-tempo-contribuicao.html" class="blog-post__link">
+                                Ler Artigo <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </article>
 
                 <!-- Artigo 3 -->
-                <article class="blog-article" id="revisao-beneficio">
-                    <div class="blog-article__header">
-                        <h2 class="blog-article__title">Direito à Revisão de Benefício Negado</h2>
-                        <div class="blog-article__meta">
-                            <span class="blog-article__date">
+                <article class="blog-post" data-category="revisao">
+                    <div class="blog-post__image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="blog-post__content">
+                        <div class="blog-post__meta">
+                            <span class="blog-post__date">
                                 <i class="fas fa-calendar"></i>
                                 1 de Novembro, 2024
                             </span>
-                            <span class="blog-article__author">
+                            <span class="blog-post__read-time">
+                                <i class="fas fa-clock"></i>
+                                10 min de leitura
+                            </span>
+                        </div>
+                        <h2 class="blog-post__title">
+                            <a href="artigos/revisao-beneficios.html">Revisão de Benefícios Previdenciários: Quando e Como Solicitar</a>
+                        </h2>
+                        <p class="blog-post__excerpt">
+                            Descubra em quais situações é possível revisar seu benefício previdenciário e aumentar seu valor. Inclui jurisprudência atualizada.
+                        </p>
+                        <div class="blog-post__footer">
+                            <span class="blog-post__author">
                                 <i class="fas fa-user"></i>
                                 Dr. Reginaldo Oliveira
                             </span>
+                            <a href="artigos/revisao-beneficios.html" class="blog-post__link">
+                                Ler Artigo <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
-                    
-                    <div class="blog-article__content">
-                        <p>Muitos beneficiários têm direito à revisão de seus benefícios previdenciários, mas desconhecem essa possibilidade. Entenda quando é possível revisar e aumentar seu benefício.</p>
-                        
-                        <h3>Casos de Revisão Possível</h3>
-                        <ul>
-                            <li>Erro no cálculo do benefício</li>
-                            <li>Inclusão de tempo de serviço não considerado</li>
-                            <li>Mudança na legislação</li>
-                            <li>Revisão da vida toda</li>
-                            <li>Benefício concedido com valor inferior ao devido</li>
-                        </ul>
-                        
-                        <h3>Prazo para Requerer</h3>
-                        <p>O prazo para requerer a revisão é de 10 anos, contados da data da concessão do benefício. É importante agir rapidamente para não perder o direito.</p>
-                        
-                        <div class="blog-article__warning">
-                            <h4>⚠️ Atenção:</h4>
-                            <p>Cada caso é único. Consulte um advogado especializado para analisar sua situação específica.</p>
+                </article>
+
+                <!-- Artigo 4 -->
+                <article class="blog-post" data-category="aposentadoria">
+                    <div class="blog-post__image">
+                        <i class="fas fa-user-injured"></i>
+                    </div>
+                    <div class="blog-post__content">
+                        <div class="blog-post__meta">
+                            <span class="blog-post__date">
+                                <i class="fas fa-calendar"></i>
+                                25 de Outubro, 2024
+                            </span>
+                            <span class="blog-post__read-time">
+                                <i class="fas fa-clock"></i>
+                                9 min de leitura
+                            </span>
+                        </div>
+                        <h2 class="blog-post__title">
+                            <a href="#">Auxílio-Doença: Direitos e Requisitos em 2024</a>
+                        </h2>
+                        <p class="blog-post__excerpt">
+                            Tudo sobre o auxílio-doença: requisitos, documentação necessária, tempo de duração e como recorrer em caso de negativa.
+                        </p>
+                        <div class="blog-post__footer">
+                            <span class="blog-post__author">
+                                <i class="fas fa-user"></i>
+                                Dr. Reginaldo Oliveira
+                            </span>
+                            <a href="#" class="blog-post__link">
+                                Ler Artigo <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Artigo 5 -->
+                <article class="blog-post" data-category="legislacao">
+                    <div class="blog-post__image">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="blog-post__content">
+                        <div class="blog-post__meta">
+                            <span class="blog-post__date">
+                                <i class="fas fa-calendar"></i>
+                                18 de Outubro, 2024
+                            </span>
+                            <span class="blog-post__read-time">
+                                <i class="fas fa-clock"></i>
+                                11 min de leitura
+                            </span>
+                        </div>
+                        <h2 class="blog-post__title">
+                            <a href="#">Pensão por Morte: Novas Regras e Como Requerer</a>
+                        </h2>
+                        <p class="blog-post__excerpt">
+                            Guia completo sobre pensão por morte: valores, documentação, prazos e os impactos da reforma previdenciária.
+                        </p>
+                        <div class="blog-post__footer">
+                            <span class="blog-post__author">
+                                <i class="fas fa-user"></i>
+                                Dr. Reginaldo Oliveira
+                            </span>
+                            <a href="#" class="blog-post__link">
+                                Ler Artigo <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Artigo 6 -->
+                <article class="blog-post" data-category="revisao">
+                    <div class="blog-post__image">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <div class="blog-post__content">
+                        <div class="blog-post__meta">
+                            <span class="blog-post__date">
+                                <i class="fas fa-calendar"></i>
+                                12 de Outubro, 2024
+                            </span>
+                            <span class="blog-post__read-time">
+                                <i class="fas fa-clock"></i>
+                                7 min de leitura
+                            </span>
+                        </div>
+                        <h2 class="blog-post__title">
+                            <a href="#">Revisão da Vida Toda: Tudo o que Você Precisa Saber</a>
+                        </h2>
+                        <p class="blog-post__excerpt">
+                            Entenda a revisão da vida toda, quem tem direito, prazos e como calcular o valor do benefício revisado.
+                        </p>
+                        <div class="blog-post__footer">
+                            <span class="blog-post__author">
+                                <i class="fas fa-user"></i>
+                                Dr. Reginaldo Oliveira
+                            </span>
+                            <a href="#" class="blog-post__link">
+                                Ler Artigo <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </article>
             </div>
+
+            <!-- Paginação -->
+            <div class="pagination">
+                <a href="#" class="pagination__item active">1</a>
+                <a href="#" class="pagination__item">2</a>
+                <a href="#" class="pagination__item">3</a>
+                <a href="#" class="pagination__item next">
+                    Próxima <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section section">
+    <!-- Newsletter -->
+    <section class="newsletter section">
         <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Precisa de Ajuda com seu Caso?</h2>
-                <p class="cta-description">Entre em contato para uma consultoria especializada em Direito Previdenciário</p>
-                <div class="cta-buttons">
-                    <a href="index.html#contato" class="button button--primary">
-                        <i class="fas fa-phone-alt"></i>
-                        Agendar Consulta
-                    </a>
-                    <a href="https://wa.me/5571996510966" class="button button--secondary" target="_blank">
-                        <i class="fab fa-whatsapp"></i>
-                        WhatsApp
-                    </a>
-                </div>
+            <div class="newsletter__content">
+                <h2 class="newsletter__title">Receba Artigos por E-mail</h2>
+                <p class="newsletter__description">
+                    Fique por dentro das novidades do Direito Previdenciário. Receba artigos exclusivos e atualizações diretamente no seu e-mail.
+                </p>
+                <form class="newsletter__form">
+                    <div class="newsletter__input-group">
+                        <input type="email" placeholder="Seu melhor e-mail" class="newsletter__input" required>
+                        <button type="submit" class="button button--primary newsletter__button">
+                            <i class="fas fa-paper-plane"></i>
+                            Assinar
+                        </button>
+                    </div>
+                    <p class="newsletter__privacy">
+                        <i class="fas fa-shield-alt"></i>
+                        Respeitamos sua privacidade. Você pode cancelar a qualquer momento.
+                    </p>
+                </form>
             </div>
         </div>
     </section>
