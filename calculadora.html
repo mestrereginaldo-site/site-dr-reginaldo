@@ -1,0 +1,303 @@
+// Calculator JavaScript
+class PrevidenciaCalculator {
+    constructor() {
+        this.currentStep = 1;
+        this.formData = {};
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.showStep(1);
+    }
+
+    bindEvents() {
+        // Next step buttons
+        document.querySelectorAll('.next-step').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const nextStep = parseInt(e.target.getAttribute('data-next'));
+                if (this.validateStep(this.currentStep)) {
+                    this.saveStepData(this.currentStep);
+                    this.showStep(nextStep);
+                }
+            });
+        });
+
+        // Previous step buttons
+        document.querySelectorAll('.prev-step').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const prevStep = parseInt(e.target.getAttribute('data-prev'));
+                this.showStep(prevStep);
+            });
+        });
+
+        // Calculate button
+        document.querySelector('.calculate-btn').addEventListener('click', () => {
+            if (this.validateStep(2)) {
+                this.saveStepData(2);
+                this.calculate();
+                this.showStep(3);
+            }
+        });
+
+        // New calculation button
+        document.querySelector('.new-calculation').addEventListener('click', () => {
+            this.resetCalculator();
+        });
+
+        // Show/hide special periods based on contribution type
+        document.getElementById('contributionType').addEventListener('change', (e) => {
+            const specialPeriodsGroup = document.getElementById('specialPeriodsGroup');
+            if (e.target.value === 'mixed') {
+                specialPeriodsGroup.style.display = 'block';
+            } else {
+                specialPeriodsGroup.style.display = 'none';
+            }
+        });
+    }
+
+    showStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.form-step').forEach(step => {
+            step.classList.remove('active');
+        });
+
+        // Show current step
+        document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+
+        // Update steps indicator
+        document.querySelectorAll('.calculator-steps .step').forEach(stepEl => {
+            stepEl.classList.remove('active');
+            if (parseInt(stepEl.getAttribute('data-step')) <= step) {
+                stepEl.classList.add('active');
+            }
+        });
+
+        this.currentStep = step;
+    }
+
+    validateStep(step) {
+        const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+        const inputs = currentStepEl.querySelectorAll('input[required], select[required]');
+        
+        let isValid = true;
+
+        inputs.forEach(input => {
+            if (!input.value) {
+                input.classList.add('error');
+                isValid = false;
+            } else {
+                input.classList.remove('error');
+            }
+        });
+
+        // Additional validations for step 1
+        if (step === 1) {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const startWork = new Date(document.getElementById('startWork').value);
+            const today = new Date();
+
+            if (birthDate >= today) {
+                this.showError('Data de nascimento não pode ser futura');
+                isValid = false;
+            }
+
+            if (startWork >= today) {
+                this.showError('Data de início não pode ser futura');
+                isValid = false;
+            }
+
+            if (startWork < birthDate) {
+                this.showError('Data de início não pode ser anterior ao nascimento');
+                isValid = false;
+            }
+        }
+
+        // Additional validations for step 2
+        if (step === 2) {
+            const salary = parseFloat(document.getElementById('salary').value);
+            if (salary < 1300 || salary > 7500) {
+                this.showError('Salário deve estar entre R$ 1.300,00 e R$ 7.500,00');
+                isValid = false;
+            }
+        }
+
+        if (!isValid) {
+            this.showError('Preencha todos os campos obrigatórios corretamente');
+        }
+
+        return isValid;
+    }
+
+    showError(message) {
+        // Remove existing error messages
+        const existingError = document.querySelector('.error-message');
+        if (existingError) {
+            existingError.remove();
+        }
+
+        // Create error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `
+            <i class="fas fa-exclamation-circle"></i>
+            ${message}
+        `;
+
+        // Insert error message
+        const currentStep = document.querySelector(`.form-step[data-step="${this.currentStep}"]`);
+        currentStep.insertBefore(errorDiv, currentStep.firstChild);
+
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 5000);
+    }
+
+    saveStepData(step) {
+        const stepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+        const inputs = stepEl.querySelectorAll('input, select');
+        
+        inputs.forEach(input => {
+            if (input.type === 'checkbox') {
+                this.formData[input.name] = input.checked;
+            } else {
+                this.formData[input.name] = input.value;
+            }
+        });
+    }
+
+    calculate() {
+        const birthDate = new Date(this.formData.birthDate);
+        const startWork = new Date(this.formData.startWork);
+        const salary = parseFloat(this.formData.salary);
+        const gender = this.formData.gender;
+        const contributionType = this.formData.contributionType;
+
+        const today = new Date();
+        const currentAge = this.calculateAge(birthDate, today);
+        const contributedTime = this.calculateTimeDifference(startWork, today);
+
+        let resultAge, resultTimeLeft, resultValue, detailRule;
+
+        // Calculate based on contribution type
+        switch (contributionType) {
+            case 'age':
+                resultAge = gender === 'male' ? 65 : 62;
+                resultTimeLeft = Math.max(0, resultAge - currentAge);
+                resultValue = this.calculateAgeRetirementValue(salary, gender);
+                detailRule = 'Aposentadoria por Idade';
+                break;
+
+            case 'time':
+                const requiredTime = gender === 'male' ? 40 : 35;
+                resultAge = currentAge + Math.max(0, requiredTime - contributedTime.years);
+                resultTimeLeft = Math.max(0, requiredTime - contributedTime.years);
+                resultValue = this.calculateTimeRetirementValue(salary, contributedTime.years);
+                detailRule = 'Aposentadoria por Tempo de Contribuição';
+                break;
+
+            case 'mixed':
+                const mixedAge = gender === 'male' ? 65 : 62;
+                const mixedTime = gender === 'male' ? 40 : 35;
+                resultAge = Math.max(mixedAge, currentAge + Math.max(0, mixedTime - contributedTime.years));
+                resultTimeLeft = Math.max(0, mixedAge - currentAge, mixedTime - contributedTime.years);
+                resultValue = this.calculateMixedRetirementValue(salary, gender, contributedTime.years);
+                detailRule = 'Regra de Transição';
+                break;
+        }
+
+        // Update results in DOM
+        this.updateResults({
+            resultAge: resultAge + ' anos',
+            resultTimeLeft: resultTimeLeft + ' anos',
+            resultValue: 'R$ ' + resultValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+            detailRule: detailRule,
+            detailCurrentAge: currentAge + ' anos',
+            detailContributedTime: contributedTime.years + ' anos e ' + contributedTime.months + ' meses',
+            detailBaseSalary: 'R$ ' + salary.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        });
+    }
+
+    calculateAge(birthDate, currentDate) {
+        let age = currentDate.getFullYear() - birthDate.getFullYear();
+        const monthDiff = currentDate.getMonth() - birthDate.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        
+        return age;
+    }
+
+    calculateTimeDifference(startDate, endDate) {
+        let years = endDate.getFullYear() - startDate.getFullYear();
+        let months = endDate.getMonth() - startDate.getMonth();
+        
+        if (months < 0) {
+            years--;
+            months += 12;
+        }
+        
+        return { years, months };
+    }
+
+    calculateAgeRetirementValue(salary, gender) {
+        // Simplified calculation - in reality, this would be more complex
+        const baseValue = salary * 0.7; // 70% of salary
+        return Math.min(baseValue, 7500); // Cap at maximum benefit
+    }
+
+    calculateTimeRetirementValue(salary, contributedYears) {
+        // Progressive calculation based on contribution time
+        let percentage = 0.6; // Base 60%
+        
+        if (contributedYears > 15) {
+            percentage += (contributedYears - 15) * 0.02; // +2% per year above 15
+        }
+        
+        percentage = Math.min(percentage, 1.0); // Cap at 100%
+        
+        return salary * percentage;
+    }
+
+    calculateMixedRetirementValue(salary, gender, contributedYears) {
+        // Mixed rule calculation
+        const ageFactor = gender === 'male' ? 0.75 : 0.8;
+        const timeFactor = Math.min(0.6 + (contributedYears * 0.01), 1.0);
+        
+        return salary * Math.max(ageFactor, timeFactor);
+    }
+
+    updateResults(results) {
+        Object.keys(results).forEach(key => {
+            const element = document.getElementById(key);
+            if (element) {
+                element.textContent = results[key];
+            }
+        });
+    }
+
+    resetCalculator() {
+        // Reset form
+        document.getElementById('calculatorForm').reset();
+        
+        // Reset form data
+        this.formData = {};
+        
+        // Hide special periods
+        document.getElementById('specialPeriodsGroup').style.display = 'none';
+        
+        // Go back to first step
+        this.showStep(1);
+        
+        // Remove any error messages
+        const errorMessages = document.querySelectorAll('.error-message');
+        errorMessages.forEach(msg => msg.remove());
+    }
+}
+
+// Initialize calculator when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    new PrevidenciaCalculator();
+});
