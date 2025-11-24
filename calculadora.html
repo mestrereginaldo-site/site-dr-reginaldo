@@ -471,255 +471,270 @@
     </a>
 
     <script>
-        // Calculator JavaScript - Versão Completa
-        class PrevidenciaCalculator {
-            constructor() {
-                this.currentStep = 1;
-                this.selectedBenefit = null;
-                this.formData = {};
-                this.init();
+        // Calculator JavaScript - Versão Corrigida e Funcional
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos da calculadora
+            const steps = document.querySelectorAll('.form-step');
+            const stepIndicators = document.querySelectorAll('.calculator-steps .step');
+            const nextButtons = document.querySelectorAll('.next-step');
+            const prevButtons = document.querySelectorAll('.prev-step');
+            const calculateButton = document.querySelector('.calculate-btn');
+            const newCalculationButton = document.querySelector('.new-calculation');
+            const benefitOptions = document.querySelectorAll('.benefit-option');
+            const nextStep1Button = document.getElementById('nextStep1');
+            
+            // Estado da calculadora
+            let currentStep = 1;
+            let selectedBenefit = null;
+            let formData = {};
+
+            // Inicialização
+            initCalculator();
+
+            function initCalculator() {
+                bindEvents();
+                showStep(1);
             }
 
-            init() {
-                this.bindEvents();
-                this.showStep(1);
-            }
-
-            bindEvents() {
-                // Benefit selection
-                document.querySelectorAll('.benefit-option').forEach(option => {
-                    option.addEventListener('click', (e) => {
-                        document.querySelectorAll('.benefit-option').forEach(opt => {
-                            opt.classList.remove('selected');
-                        });
-                        option.classList.add('selected');
-                        this.selectedBenefit = option.getAttribute('data-benefit');
-                        document.getElementById('nextStep1').disabled = false;
+            function bindEvents() {
+                // Seleção de benefício
+                benefitOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remove seleção anterior
+                        benefitOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Adiciona seleção atual
+                        this.classList.add('selected');
+                        selectedBenefit = this.getAttribute('data-benefit');
+                        
+                        // Habilita o botão próximo
+                        nextStep1Button.disabled = false;
+                        
+                        // Atualiza campos do formulário
+                        updateFormFields();
                     });
                 });
 
-                // Next step buttons
-                document.querySelectorAll('.next-step').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const nextStep = parseInt(e.target.getAttribute('data-next'));
-                        if (this.validateStep(this.currentStep)) {
-                            this.saveStepData(this.currentStep);
-                            this.showStep(nextStep);
+                // Botões próximo
+                nextButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const nextStep = parseInt(this.getAttribute('data-next'));
+                        if (validateStep(currentStep)) {
+                            saveStepData(currentStep);
+                            showStep(nextStep);
                         }
                     });
                 });
 
-                // Previous step buttons
-                document.querySelectorAll('.prev-step').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const prevStep = parseInt(e.target.getAttribute('data-prev'));
-                        this.showStep(prevStep);
+                // Botões anterior
+                prevButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const prevStep = parseInt(this.getAttribute('data-prev'));
+                        showStep(prevStep);
                     });
                 });
 
-                // Calculate button
-                document.querySelector('.calculate-btn').addEventListener('click', () => {
-                    if (this.validateStep(3)) {
-                        this.saveStepData(3);
-                        this.calculate();
-                        this.showStep(4);
+                // Botão calcular
+                calculateButton.addEventListener('click', function() {
+                    if (validateStep(3)) {
+                        saveStepData(3);
+                        calculateResults();
+                        showStep(4);
                     }
                 });
 
-                // New calculation button
-                document.querySelector('.new-calculation').addEventListener('click', () => {
-                    this.resetCalculator();
-                });
+                // Botão nova simulação
+                newCalculationButton.addEventListener('click', resetCalculator);
 
-                // Show/hide fields based on benefit type
-                document.getElementById('maritalStatus').addEventListener('change', (e) => {
+                // Atualizar campos quando estado civil mudar
+                document.getElementById('maritalStatus').addEventListener('change', function() {
                     const dependentsGroup = document.getElementById('dependentsGroup');
-                    if (e.target.value === 'married' || e.target.value === 'widowed') {
+                    if (this.value === 'married' || this.value === 'widowed') {
                         dependentsGroup.style.display = 'block';
                     } else {
                         dependentsGroup.style.display = 'none';
                     }
                 });
-
-                // Show/hide special fields based on benefit type
-                document.addEventListener('change', () => {
-                    this.updateFormFields();
-                });
             }
 
-            updateFormFields() {
+            function updateFormFields() {
                 const specialPeriodsGroup = document.getElementById('specialPeriodsGroup');
                 const disabilityInfoGroup = document.getElementById('disabilityInfoGroup');
                 const pensionInfoGroup = document.getElementById('pensionInfoGroup');
                 const bpcInfoGroup = document.getElementById('bpcInfoGroup');
 
-                // Reset all
+                // Esconde todos os grupos primeiro
                 specialPeriodsGroup.style.display = 'none';
                 disabilityInfoGroup.style.display = 'none';
                 pensionInfoGroup.style.display = 'none';
                 bpcInfoGroup.style.display = 'none';
 
-                // Show relevant fields based on selected benefit
-                if (this.selectedBenefit === 'special') {
-                    specialPeriodsGroup.style.display = 'block';
-                } else if (this.selectedBenefit === 'disability') {
-                    disabilityInfoGroup.style.display = 'block';
-                } else if (this.selectedBenefit === 'pension') {
-                    pensionInfoGroup.style.display = 'block';
-                } else if (this.selectedBenefit === 'bpc') {
-                    bpcInfoGroup.style.display = 'block';
+                // Mostra grupos relevantes baseado no benefício selecionado
+                switch(selectedBenefit) {
+                    case 'special':
+                        specialPeriodsGroup.style.display = 'block';
+                        break;
+                    case 'disability':
+                        disabilityInfoGroup.style.display = 'block';
+                        break;
+                    case 'pension':
+                        pensionInfoGroup.style.display = 'block';
+                        break;
+                    case 'bpc':
+                        bpcInfoGroup.style.display = 'block';
+                        break;
                 }
             }
 
-            showStep(step) {
-                // Hide all steps
-                document.querySelectorAll('.form-step').forEach(step => {
-                    step.classList.remove('active');
-                });
-
-                // Show current step
-                document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
-
-                // Update steps indicator
-                document.querySelectorAll('.calculator-steps .step').forEach(stepEl => {
-                    stepEl.classList.remove('active');
-                    if (parseInt(stepEl.getAttribute('data-step')) <= step) {
-                        stepEl.classList.add('active');
-                    }
-                });
-
-                this.currentStep = step;
-            }
-
-            validateStep(step) {
-                const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
-                const inputs = currentStepEl.querySelectorAll('input[required], select[required]');
+            function showStep(step) {
+                // Esconde todos os passos
+                steps.forEach(s => s.classList.remove('active'));
                 
-                let isValid = true;
-
-                // For step 1, we need to check if a benefit was selected
-                if (step === 1) {
-                    if (!this.selectedBenefit) {
-                        this.showError('Selecione um tipo de benefício para continuar');
-                        isValid = false;
-                    }
-                }
-
-                inputs.forEach(input => {
-                    if (!input.value) {
-                        input.classList.add('error');
-                        isValid = false;
-                    } else {
-                        input.classList.remove('error');
+                // Mostra o passo atual
+                document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+                
+                // Atualiza indicadores de progresso
+                stepIndicators.forEach(indicator => {
+                    indicator.classList.remove('active');
+                    if (parseInt(indicator.getAttribute('data-step')) <= step) {
+                        indicator.classList.add('active');
                     }
                 });
+                
+                currentStep = step;
+            }
 
-                // Additional validations for step 2
-                if (step === 2) {
-                    const birthDate = new Date(document.getElementById('birthDate').value);
-                    const today = new Date();
-
-                    if (birthDate >= today) {
-                        this.showError('Data de nascimento não pode ser futura');
+            function validateStep(step) {
+                let isValid = true;
+                const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+                
+                // Validação do passo 1
+                if (step === 1) {
+                    if (!selectedBenefit) {
+                        showError('Selecione um tipo de benefício para continuar');
                         isValid = false;
                     }
                 }
-
-                // Additional validations for step 3
-                if (step === 3) {
-                    const birthDate = new Date(document.getElementById('birthDate').value);
-                    const startWork = new Date(document.getElementById('startWork').value);
-                    const today = new Date();
-                    const salary = parseFloat(document.getElementById('salary').value);
-
-                    if (startWork >= today) {
-                        this.showError('Data de início não pode ser futura');
-                        isValid = false;
+                
+                // Validação dos passos 2 e 3
+                if (step === 2 || step === 3) {
+                    const requiredInputs = currentStepEl.querySelectorAll('input[required], select[required]');
+                    
+                    requiredInputs.forEach(input => {
+                        if (!input.value) {
+                            input.classList.add('error');
+                            isValid = false;
+                        } else {
+                            input.classList.remove('error');
+                        }
+                    });
+                    
+                    // Validações específicas
+                    if (step === 2) {
+                        const birthDate = new Date(document.getElementById('birthDate').value);
+                        const today = new Date();
+                        
+                        if (birthDate >= today) {
+                            showError('Data de nascimento não pode ser futura');
+                            isValid = false;
+                        }
                     }
-
-                    if (startWork < birthDate) {
-                        this.showError('Data de início não pode ser anterior ao nascimento');
-                        isValid = false;
-                    }
-
-                    if (salary < 1300 || salary > 7500) {
-                        this.showError('Salário deve estar entre R$ 1.300,00 e R$ 7.500,00');
-                        isValid = false;
+                    
+                    if (step === 3) {
+                        const birthDate = new Date(document.getElementById('birthDate').value);
+                        const startWork = new Date(document.getElementById('startWork').value);
+                        const today = new Date();
+                        const salary = parseFloat(document.getElementById('salary').value);
+                        
+                        if (startWork >= today) {
+                            showError('Data de início não pode ser futura');
+                            isValid = false;
+                        }
+                        
+                        if (startWork < birthDate) {
+                            showError('Data de início não pode ser anterior ao nascimento');
+                            isValid = false;
+                        }
+                        
+                        if (salary < 1300 || salary > 7500) {
+                            showError('Salário deve estar entre R$ 1.300,00 e R$ 7.500,00');
+                            isValid = false;
+                        }
                     }
                 }
-
+                
                 if (!isValid) {
-                    this.showError('Preencha todos os campos obrigatórios corretamente');
+                    showError('Preencha todos os campos obrigatórios corretamente');
                 }
-
+                
                 return isValid;
             }
 
-            showError(message) {
-                // Remove existing error messages
+            function showError(message) {
+                // Remove mensagens de erro existentes
                 const existingError = document.querySelector('.error-message');
                 if (existingError) {
                     existingError.remove();
                 }
-
-                // Create error message
+                
+                // Cria nova mensagem de erro
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'error-message';
                 errorDiv.innerHTML = `
                     <i class="fas fa-exclamation-circle"></i>
                     ${message}
                 `;
-
-                // Insert error message
-                const currentStep = document.querySelector(`.form-step[data-step="${this.currentStep}"]`);
-                currentStep.insertBefore(errorDiv, currentStep.firstChild);
-
-                // Auto remove after 5 seconds
+                
+                // Insere a mensagem de erro
+                const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                currentStepEl.insertBefore(errorDiv, currentStepEl.firstChild);
+                
+                // Remove automaticamente após 5 segundos
                 setTimeout(() => {
                     errorDiv.remove();
                 }, 5000);
             }
 
-            saveStepData(step) {
+            function saveStepData(step) {
                 const stepEl = document.querySelector(`.form-step[data-step="${step}"]`);
                 const inputs = stepEl.querySelectorAll('input, select');
                 
                 inputs.forEach(input => {
                     if (input.type === 'checkbox') {
-                        this.formData[input.name] = input.checked;
+                        formData[input.name] = input.checked;
                     } else {
-                        this.formData[input.name] = input.value;
+                        formData[input.name] = input.value;
                     }
                 });
-
-                // Save selected benefit
+                
+                // Salva o benefício selecionado
                 if (step === 1) {
-                    this.formData.benefitType = this.selectedBenefit;
+                    formData.benefitType = selectedBenefit;
                 }
             }
 
-            calculate() {
-                const birthDate = new Date(this.formData.birthDate);
-                const startWork = new Date(this.formData.startWork);
-                const salary = parseFloat(this.formData.salary);
-                const gender = this.formData.gender;
-                const benefitType = this.formData.benefitType;
-                const dependents = parseInt(this.formData.dependents) || 0;
+            function calculateResults() {
+                const birthDate = new Date(formData.birthDate);
+                const startWork = new Date(formData.startWork);
+                const salary = parseFloat(formData.salary);
+                const gender = formData.gender;
+                const benefitType = formData.benefitType;
+                const dependents = parseInt(formData.dependents) || 0;
 
                 const today = new Date();
-                const currentAge = this.calculateAge(birthDate, today);
-                const contributedTime = this.calculateTimeDifference(startWork, today);
+                const currentAge = calculateAge(birthDate, today);
+                const contributedTime = calculateTimeDifference(startWork, today);
 
                 let resultAge, resultTimeLeft, resultValue, detailRule, benefitName;
 
-                // Calculate based on benefit type
+                // Calcula baseado no tipo de benefício
                 switch (benefitType) {
                     case 'age':
                         benefitName = 'Aposentadoria por Idade';
                         resultAge = gender === 'male' ? 65 : 62;
                         resultTimeLeft = Math.max(0, resultAge - currentAge);
-                        resultValue = this.calculateAgeRetirementValue(salary, gender);
-                        detailRule = 'Idade mínima: ' + (gender === 'male' ? '65 anos' : '62 anos');
+                        resultValue = calculateAgeRetirementValue(salary, gender, contributedTime.years);
+                        detailRule = 'Idade mínima: ' + (gender === 'male' ? '65 anos' : '62 anos') + ' + 15 anos de contribuição';
                         break;
 
                     case 'contribution':
@@ -727,7 +742,7 @@
                         const requiredTime = gender === 'male' ? 35 : 30;
                         resultAge = currentAge + Math.max(0, requiredTime - contributedTime.years);
                         resultTimeLeft = Math.max(0, requiredTime - contributedTime.years);
-                        resultValue = this.calculateTimeRetirementValue(salary, contributedTime.years);
+                        resultValue = calculateTimeRetirementValue(salary, contributedTime.years, gender);
                         detailRule = 'Tempo mínimo: ' + requiredTime + ' anos';
                         break;
 
@@ -735,7 +750,7 @@
                         benefitName = 'Auxílio-Doença';
                         resultAge = '-';
                         resultTimeLeft = '-';
-                        resultValue = this.calculateDisabilityValue(salary);
+                        resultValue = calculateDisabilityValue(salary);
                         detailRule = 'Carência de 12 meses e incapacidade comprovada';
                         break;
 
@@ -743,8 +758,8 @@
                         benefitName = 'Pensão por Morte';
                         resultAge = '-';
                         resultTimeLeft = '-';
-                        const deceasedSalary = parseFloat(this.formData.deceasedSalary) || salary;
-                        resultValue = this.calculatePensionValue(deceasedSalary, dependents);
+                        const deceasedSalary = parseFloat(formData.deceasedSalary) || salary;
+                        resultValue = calculatePensionValue(deceasedSalary, dependents);
                         detailRule = 'Baseado no salário do falecido e número de dependentes';
                         break;
 
@@ -752,7 +767,7 @@
                         benefitName = 'BPC/LOAS';
                         resultAge = '-';
                         resultTimeLeft = '-';
-                        resultValue = this.calculateBPCValue();
+                        resultValue = calculateBPCValue();
                         detailRule = 'Renda familiar per capita inferior a 1/4 do salário mínimo';
                         break;
 
@@ -760,13 +775,13 @@
                         benefitName = 'Aposentadoria Especial';
                         resultAge = currentAge + Math.max(0, 25 - contributedTime.years);
                         resultTimeLeft = Math.max(0, 25 - contributedTime.years);
-                        resultValue = this.calculateSpecialRetirementValue(salary);
+                        resultValue = calculateSpecialRetirementValue(salary);
                         detailRule = '25 anos de atividade especial';
                         break;
                 }
 
-                // Update results in DOM
-                this.updateResults({
+                // Atualiza resultados no DOM
+                updateResults({
                     resultAge: resultAge + (resultAge !== '-' ? ' anos' : ''),
                     resultTimeLeft: resultTimeLeft + (resultTimeLeft !== '-' ? ' anos' : ''),
                     resultValue: 'R$ ' + (typeof resultValue === 'number' ? resultValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : resultValue),
@@ -777,7 +792,7 @@
                     detailBaseSalary: 'R$ ' + salary.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                 });
 
-                // Show dependents if applicable
+                // Mostra dependentes se aplicável
                 const dependentsItem = document.getElementById('detailDependentsItem');
                 if (benefitType === 'pension' && dependents > 0) {
                     document.getElementById('detailDependents').textContent = dependents;
@@ -787,7 +802,7 @@
                 }
             }
 
-            calculateAge(birthDate, currentDate) {
+            function calculateAge(birthDate, currentDate) {
                 let age = currentDate.getFullYear() - birthDate.getFullYear();
                 const monthDiff = currentDate.getMonth() - birthDate.getMonth();
                 
@@ -798,7 +813,7 @@
                 return age;
             }
 
-            calculateTimeDifference(startDate, endDate) {
+            function calculateTimeDifference(startDate, endDate) {
                 let years = endDate.getFullYear() - startDate.getFullYear();
                 let months = endDate.getMonth() - startDate.getMonth();
                 
@@ -810,59 +825,58 @@
                 return { years, months };
             }
 
-            calculateAgeRetirementValue(salary, gender) {
-                // 70% do salário de benefício + 1% por ano de contribuição acima de 15 anos (mulheres) ou 20 anos (homens)
+            function calculateAgeRetirementValue(salary, gender, contributedYears) {
+                // 60% do salário de benefício + 2% por ano de contribuição acima de 15 anos (mulheres) ou 20 anos (homens)
                 const baseYears = gender === 'male' ? 20 : 15;
-                let percentage = 0.7;
-                
-                const contributedYears = this.calculateTimeDifference(new Date(this.formData.startWork), new Date()).years;
-                if (contributedYears > baseYears) {
-                    percentage += (contributedYears - baseYears) * 0.01;
-                }
-                
-                percentage = Math.min(percentage, 1.0); // Cap at 100%
-                
-                return Math.min(salary * percentage, 7500); // Cap at maximum benefit
-            }
-
-            calculateTimeRetirementValue(salary, contributedYears) {
-                // 60% + 2% por ano acima de 15 anos (mulheres) ou 20 anos (homens)
-                const baseYears = this.formData.gender === 'male' ? 20 : 15;
                 let percentage = 0.6;
                 
                 if (contributedYears > baseYears) {
                     percentage += (contributedYears - baseYears) * 0.02;
                 }
                 
-                percentage = Math.min(percentage, 1.0); // Cap at 100%
+                percentage = Math.min(percentage, 1.0); // Máximo de 100%
+                
+                return Math.min(salary * percentage, 7500); // Teto do INSS
+            }
+
+            function calculateTimeRetirementValue(salary, contributedYears, gender) {
+                // 60% + 2% por ano acima de 15 anos (mulheres) ou 20 anos (homens)
+                const baseYears = gender === 'male' ? 20 : 15;
+                let percentage = 0.6;
+                
+                if (contributedYears > baseYears) {
+                    percentage += (contributedYears - baseYears) * 0.02;
+                }
+                
+                percentage = Math.min(percentage, 1.0); // Máximo de 100%
                 
                 return salary * percentage;
             }
 
-            calculateDisabilityValue(salary) {
+            function calculateDisabilityValue(salary) {
                 // 91% do salário de benefício
                 return salary * 0.91;
             }
 
-            calculatePensionValue(salary, dependents) {
+            function calculatePensionValue(salary, dependents) {
                 // 50% do salário do falecido + 10% por dependente (até 100%)
                 let percentage = 0.5 + (dependents * 0.1);
-                percentage = Math.min(percentage, 1.0); // Cap at 100%
+                percentage = Math.min(percentage, 1.0); // Máximo de 100%
                 
                 return salary * percentage;
             }
 
-            calculateBPCValue() {
+            function calculateBPCValue() {
                 // Valor fixo do BPC (1 salário mínimo)
                 return 1412.00; // Valor aproximado do salário mínimo em 2024
             }
 
-            calculateSpecialRetirementValue(salary) {
+            function calculateSpecialRetirementValue(salary) {
                 // 100% do salário de benefício para aposentadoria especial
                 return salary;
             }
 
-            updateResults(results) {
+            function updateResults(results) {
                 Object.keys(results).forEach(key => {
                     const element = document.getElementById(key);
                     if (element) {
@@ -871,21 +885,21 @@
                 });
             }
 
-            resetCalculator() {
-                // Reset form
+            function resetCalculator() {
+                // Reseta o formulário
                 document.getElementById('calculatorForm').reset();
                 
-                // Reset benefit selection
-                document.querySelectorAll('.benefit-option').forEach(opt => {
+                // Reseta seleção de benefício
+                benefitOptions.forEach(opt => {
                     opt.classList.remove('selected');
                 });
-                this.selectedBenefit = null;
-                document.getElementById('nextStep1').disabled = true;
+                selectedBenefit = null;
+                nextStep1Button.disabled = true;
                 
-                // Reset form data
-                this.formData = {};
+                // Reseta dados do formulário
+                formData = {};
                 
-                // Hide all special fields
+                // Esconde todos os campos especiais
                 document.getElementById('specialPeriodsGroup').style.display = 'none';
                 document.getElementById('disabilityInfoGroup').style.display = 'none';
                 document.getElementById('pensionInfoGroup').style.display = 'none';
@@ -893,18 +907,13 @@
                 document.getElementById('dependentsGroup').style.display = 'none';
                 document.getElementById('detailDependentsItem').style.display = 'none';
                 
-                // Go back to first step
-                this.showStep(1);
+                // Volta para o primeiro passo
+                showStep(1);
                 
-                // Remove any error messages
+                // Remove mensagens de erro
                 const errorMessages = document.querySelectorAll('.error-message');
                 errorMessages.forEach(msg => msg.remove());
             }
-        }
-
-        // Initialize calculator when DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            new PrevidenciaCalculator();
         });
     </script>
 
