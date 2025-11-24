@@ -4,10 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Reginaldo Oliveira - Advogado Previdenciário | OAB/SC 57.879</title>
-    <meta name="description" content="Dr. Reginaldo Oliveira - Especialista em Direito Previdenciário. Atuação administrativa e judicial em aposentadorias, revisões e benefícios.">
+    <meta name="description" content="Dr. Reginaldo Oliveira - Advogado Especialista em Direito Previdenciário. Atuação em aposentadorias, revisões de benefícios, auxílio-doença e pensão por morte. Consultoria jurídica especializada.">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+    
+    <!-- Meta Tags para SEO -->
+    <meta name="keywords" content="advogado previdenciário, direito previdenciário, aposentadoria, auxílio-doença, pensão por morte, revisão de benefício, INSS, advogado INSS, Dr. Reginaldo Oliveira">
+    <meta name="author" content="Dr. Reginaldo Oliveira">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://drreginaldooliveira.com.br/">
+    <meta property="og:title" content="Dr. Reginaldo Oliveira - Advogado Previdenciário | OAB/SC 57.879">
+    <meta property="og:description" content="Advogado Especialista em Direito Previdenciário. Atuação em aposentadorias, revisões de benefícios, auxílio-doença e pensão por morte.">
+    <meta property="og:image" content="https://drreginaldooliveira.com.br/assets/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://drreginaldooliveira.com.br/">
+    <meta property="twitter:title" content="Dr. Reginaldo Oliveira - Advogado Previdenciário">
+    <meta property="twitter:description" content="Advogado Especialista em Direito Previdenciário. Defendendo seus direitos com excelência e compromisso.">
+    <meta property="twitter:image" content="https://drreginaldooliveira.com.br/assets/images/twitter-image.jpg">
+    
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Dr. Reginaldo Oliveira - Advogado Previdenciário",
+      "description": "Advogado especialista em Direito Previdenciário com mais de 10 anos de experiência",
+      "url": "https://drreginaldooliveira.com.br",
+      "telephone": "+55-71-99651-0966",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "BR",
+        "addressRegion": "SC",
+        "addressLocality": "Santa Catarina"
+      },
+      "areaServed": "BR",
+      "serviceType": "Direito Previdenciário",
+      "author": {
+        "@type": "Person",
+        "name": "Dr. Reginaldo Oliveira"
+      }
+    }
+    </script>
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,9 +116,9 @@
                         Advogado Especialista em Direito Previdenciário
                     </h2>
                     <p class="home__description">
-                        Defendendo seus direitos previdenciários com excelência jurídica. 
-                        Atuação em processos administrativos e judiciais para garantir 
-                        sua aposentadoria e benefícios.
+                        Advogado especialista em Direito Previdenciário. Defendendo seus direitos 
+                        com excelência e compromisso. Atuação em processos administrativos e 
+                        judiciais para garantir sua aposentadoria e benefícios.
                     </p>
                     
                     <div class="home__buttons">
@@ -311,21 +354,21 @@
             </div>
             
             <div class="contato__form">
-                <form class="form">
+                <form class="form" id="contact-form">
                     <div class="form__group">
-                        <input type="text" placeholder="Seu nome" class="form__input" required>
+                        <input type="text" name="nome" placeholder="Seu nome" class="form__input" required>
                     </div>
                     
                     <div class="form__group">
-                        <input type="email" placeholder="Seu e-mail" class="form__input" required>
+                        <input type="email" name="email" placeholder="Seu e-mail" class="form__input" required>
                     </div>
                     
                     <div class="form__group">
-                        <input type="tel" placeholder="Seu telefone" class="form__input" required>
+                        <input type="tel" name="telefone" placeholder="Seu telefone" class="form__input" required>
                     </div>
                     
                     <div class="form__group">
-                        <select class="form__input" required>
+                        <select name="assunto" class="form__input" required>
                             <option value="">Selecione o assunto</option>
                             <option value="aposentadoria">Aposentadoria</option>
                             <option value="auxilio-doenca">Auxílio-Doença</option>
@@ -336,7 +379,7 @@
                     </div>
                     
                     <div class="form__group">
-                        <textarea placeholder="Descreva brevemente seu caso" class="form__input form__textarea" required></textarea>
+                        <textarea name="mensagem" placeholder="Descreva brevemente seu caso" class="form__input form__textarea" required></textarea>
                     </div>
                     
                     <button type="submit" class="button button--primary form__button">
@@ -403,7 +446,7 @@
     </footer>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/5571996510966?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Reginaldo%20Oliveira" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/5571996510966?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Reginaldo%20Oliveira" class="whatsapp-float" target="_blank" aria-label="Entre em contato pelo WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
