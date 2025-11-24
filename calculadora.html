@@ -245,8 +245,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="salary">Salário Base (R$) *</label>
-                                <input type="number" id="salary" name="salary" min="1300" max="7500" step="0.01" placeholder="Ex: 3000,00" required>
-                                <small>Informe um valor entre R$ 1.300,00 e R$ 7.500,00</small>
+                                <input type="number" id="salary" name="salary" min="1518" max="7500" step="0.01" placeholder="Ex: 3000,00" required>
+                                <small>Informe um valor entre R$ 1.518,00 (salário mínimo) e R$ 7.500,00 (teto do INSS)</small>
                             </div>
                         </div>
                         <div class="form-group" id="specialPeriodsGroup" style="display: none;">
@@ -275,7 +275,7 @@
                         </div>
                         <div class="form-group" id="pensionInfoGroup" style="display: none;">
                             <label for="deceasedSalary">Salário do Falecido (R$)</label>
-                            <input type="number" id="deceasedSalary" name="deceasedSalary" min="1300" max="7500" step="0.01" placeholder="Ex: 3000,00">
+                            <input type="number" id="deceasedSalary" name="deceasedSalary" min="1518" max="7500" step="0.01" placeholder="Ex: 3000,00">
                         </div>
                         <div class="form-group" id="bpcInfoGroup" style="display: none;">
                             <label for="familyIncome">Renda Familiar Mensal (R$)</label>
@@ -366,7 +366,7 @@
                                         <i class="fas fa-whatsapp"></i>
                                         Falar no WhatsApp
                                     </a>
-                                    <a href="index.html#contato" class="button button--primary">
+                                    <a href="https://wa.me/5571996510966?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Reginaldo%20Oliveira" class="button button--primary" target="_blank">
                                         <i class="fas fa-phone-alt"></i>
                                         Agendar Consulta
                                     </a>
@@ -461,7 +461,7 @@
         </div>
         
         <div class="footer__copy">
-            <p>&copy; 2024 Dr. Reginaldo Oliveira - OAB/SC 57.879. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Dr. Reginaldo Oliveira - OAB/SC 57.879. Todos os direitos reservados.</p>
         </div>
     </footer>
 
@@ -470,9 +470,43 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Script do Menu Hamburguer -->
     <script>
-        // Calculator JavaScript - Versão Corrigida e Funcional
+        // Menu Hamburguer - Código para funcionar em dispositivos móveis
         document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('nav-toggle');
+            const navClose = document.getElementById('nav-close');
+            const navMenu = document.getElementById('nav-menu');
+            
+            if(navToggle) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.add('show-menu');
+                });
+            }
+            
+            if(navClose) {
+                navClose.addEventListener('click', () => {
+                    navMenu.classList.remove('show-menu');
+                });
+            }
+            
+            // Fechar menu ao clicar em um link
+            const navLinks = document.querySelectorAll('.nav__link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('show-menu');
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Calculator JavaScript - Versão Atualizada 2025
+        document.addEventListener('DOMContentLoaded', function() {
+            // Constantes importantes atualizadas para 2025
+            const SALARIO_MINIMO = 1518.00; // Salário mínimo 2025
+            const TETO_INSS = 7500.00; // Teto do INSS 2025
+
             // Elementos da calculadora
             const steps = document.querySelectorAll('.form-step');
             const stepIndicators = document.querySelectorAll('.calculator-steps .step');
@@ -656,8 +690,8 @@
                             isValid = false;
                         }
                         
-                        if (salary < 1300 || salary > 7500) {
-                            showError('Salário deve estar entre R$ 1.300,00 e R$ 7.500,00');
+                        if (salary < SALARIO_MINIMO || salary > TETO_INSS) {
+                            showError(`Salário deve estar entre R$ ${SALARIO_MINIMO.toLocaleString('pt-BR', {minimumFractionDigits: 2})} (salário mínimo) e R$ ${TETO_INSS.toLocaleString('pt-BR', {minimumFractionDigits: 2})} (teto do INSS)`);
                             isValid = false;
                         }
                     }
@@ -731,6 +765,7 @@
                 switch (benefitType) {
                     case 'age':
                         benefitName = 'Aposentadoria por Idade';
+                        // Regra atual: 65 anos (homem) / 62 anos (mulher) + 15 anos de contribuição
                         resultAge = gender === 'male' ? 65 : 62;
                         resultTimeLeft = Math.max(0, resultAge - currentAge);
                         resultValue = calculateAgeRetirementValue(salary, gender, contributedTime.years);
@@ -739,11 +774,12 @@
 
                     case 'contribution':
                         benefitName = 'Aposentadoria por Tempo de Contribuição';
+                        // Regra atual: 35 anos (homem) / 30 anos (mulher) de contribuição
                         const requiredTime = gender === 'male' ? 35 : 30;
                         resultAge = currentAge + Math.max(0, requiredTime - contributedTime.years);
                         resultTimeLeft = Math.max(0, requiredTime - contributedTime.years);
                         resultValue = calculateTimeRetirementValue(salary, contributedTime.years, gender);
-                        detailRule = 'Tempo mínimo: ' + requiredTime + ' anos';
+                        detailRule = 'Tempo mínimo: ' + requiredTime + ' anos de contribuição';
                         break;
 
                     case 'disability':
@@ -751,7 +787,7 @@
                         resultAge = '-';
                         resultTimeLeft = '-';
                         resultValue = calculateDisabilityValue(salary);
-                        detailRule = 'Carência de 12 meses e incapacidade comprovada';
+                        detailRule = 'Carência de 12 meses e incapacidade temporária comprovada';
                         break;
 
                     case 'pension':
@@ -768,15 +804,17 @@
                         resultAge = '-';
                         resultTimeLeft = '-';
                         resultValue = calculateBPCValue();
-                        detailRule = 'Renda familiar per capita inferior a 1/4 do salário mínimo';
+                        detailRule = 'Para idosos (65+) ou pessoas com deficiência, com renda familiar per capita inferior a 1/4 do salário mínimo';
                         break;
 
                     case 'special':
                         benefitName = 'Aposentadoria Especial';
-                        resultAge = currentAge + Math.max(0, 25 - contributedTime.years);
-                        resultTimeLeft = Math.max(0, 25 - contributedTime.years);
+                        // 25, 20 ou 15 anos dependendo do grau de risco
+                        const specialYears = 25; // Para atividades de alto risco
+                        resultAge = currentAge + Math.max(0, specialYears - contributedTime.years);
+                        resultTimeLeft = Math.max(0, specialYears - contributedTime.years);
                         resultValue = calculateSpecialRetirementValue(salary);
-                        detailRule = '25 anos de atividade especial';
+                        detailRule = specialYears + ' anos de atividade especial (alto risco)';
                         break;
                 }
 
@@ -826,54 +864,74 @@
             }
 
             function calculateAgeRetirementValue(salary, gender, contributedYears) {
-                // 60% do salário de benefício + 2% por ano de contribuição acima de 15 anos (mulheres) ou 20 anos (homens)
-                const baseYears = gender === 'male' ? 20 : 15;
-                let percentage = 0.6;
+                // Cálculo realista baseado na média dos 80% maiores salários
+                // Mínimo: salário mínimo, Máximo: teto do INSS
+                let percentage = 0.6; // 60% base
                 
+                // Acréscimo de 2% por ano acima de 20 anos (homem) ou 15 anos (mulher)
+                const baseYears = gender === 'male' ? 20 : 15;
                 if (contributedYears > baseYears) {
                     percentage += (contributedYears - baseYears) * 0.02;
                 }
                 
                 percentage = Math.min(percentage, 1.0); // Máximo de 100%
                 
-                return Math.min(salary * percentage, 7500); // Teto do INSS
+                let value = salary * percentage;
+                value = Math.max(value, SALARIO_MINIMO); // Não pode ser menor que salário mínimo
+                value = Math.min(value, TETO_INSS); // Não pode ultrapassar teto do INSS
+                
+                return value;
             }
 
             function calculateTimeRetirementValue(salary, contributedYears, gender) {
-                // 60% + 2% por ano acima de 15 anos (mulheres) ou 20 anos (homens)
-                const baseYears = gender === 'male' ? 20 : 15;
-                let percentage = 0.6;
+                // Cálculo para aposentadoria por tempo de contribuição
+                let percentage = 0.6; // 60% base
                 
+                // Acréscimo de 2% por ano acima de 20 anos (homem) ou 15 anos (mulher)
+                const baseYears = gender === 'male' ? 20 : 15;
                 if (contributedYears > baseYears) {
                     percentage += (contributedYears - baseYears) * 0.02;
                 }
                 
                 percentage = Math.min(percentage, 1.0); // Máximo de 100%
                 
-                return salary * percentage;
+                let value = salary * percentage;
+                value = Math.max(value, SALARIO_MINIMO); // Não pode ser menor que salário mínimo
+                value = Math.min(value, TETO_INSS); // Não pode ultrapassar teto do INSS
+                
+                return value;
             }
 
             function calculateDisabilityValue(salary) {
-                // 91% do salário de benefício
-                return salary * 0.91;
+                // Auxílio-doença: 91% do salário de benefício
+                let value = salary * 0.91;
+                value = Math.max(value, SALARIO_MINIMO); // Não pode ser menor que salário mínimo
+                value = Math.min(value, TETO_INSS); // Não pode ultrapassar teto do INSS
+                return value;
             }
 
             function calculatePensionValue(salary, dependents) {
-                // 50% do salário do falecido + 10% por dependente (até 100%)
+                // Pensão por morte: 50% + 10% por dependente (até 100%)
                 let percentage = 0.5 + (dependents * 0.1);
                 percentage = Math.min(percentage, 1.0); // Máximo de 100%
                 
-                return salary * percentage;
+                let value = salary * percentage;
+                value = Math.max(value, SALARIO_MINIMO); // Não pode ser menor que salário mínimo
+                value = Math.min(value, TETO_INSS); // Não pode ultrapassar teto do INSS
+                return value;
             }
 
             function calculateBPCValue() {
-                // Valor fixo do BPC (1 salário mínimo)
-                return 1412.00; // Valor aproximado do salário mínimo em 2024
+                // BPC/LOAS: 1 salário mínimo
+                return SALARIO_MINIMO;
             }
 
             function calculateSpecialRetirementValue(salary) {
-                // 100% do salário de benefício para aposentadoria especial
-                return salary;
+                // Aposentadoria especial: 100% da média
+                let value = salary;
+                value = Math.max(value, SALARIO_MINIMO); // Não pode ser menor que salário mínimo
+                value = Math.min(value, TETO_INSS); // Não pode ultrapassar teto do INSS
+                return value;
             }
 
             function updateResults(results) {
