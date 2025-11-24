@@ -56,7 +56,7 @@ function scrollHeader() {
 window.addEventListener('scroll', scrollHeader);
 
 // ===== FORM SUBMISSION =====
-const contactForm = document.querySelector('.form');
+const contactForm = document.getElementById('contact-form');
 const contactButton = document.querySelector('.form__button');
 
 if (contactForm) {
@@ -152,3 +152,10 @@ sr.reveal('.home__image, .sobre__image', { origin: 'bottom' });
 sr.reveal('.atuacao__card, .diferencial__card', { interval: 100 });
 sr.reveal('.contato__content', { origin: 'left' });
 sr.reveal('.contato__form', { origin: 'right' });
+
+// ===== GOOGLE ANALYTICS SIMULAÇÃO =====
+// Adicione seu código do Google Analytics aqui quando tiver
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'GA_MEASUREMENT_ID'); // Substitua pelo seu ID
