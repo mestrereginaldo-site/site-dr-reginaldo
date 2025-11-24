@@ -135,6 +135,44 @@ img {
     font-size: var(--normal-font-size);
 }
 
+/* ===== LOGO ===== */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-color);
+    font-size: 1.2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-text span {
+    font-weight: var(--font-bold);
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+
+.logo-text small {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    font-weight: var(--font-regular);
+}
+
 /* ===== HEADER ===== */
 .header {
     width: 100%;
@@ -154,17 +192,7 @@ img {
 }
 
 .nav__logo {
-    display: flex;
-    flex-direction: column;
     color: var(--primary-color);
-    font-weight: var(--font-bold);
-    font-size: 1.2rem;
-}
-
-.nav__logo small {
-    font-size: 0.7rem;
-    font-weight: var(--font-regular);
-    color: var(--text-light);
 }
 
 .nav__menu {
@@ -713,6 +741,18 @@ img {
     .diferenciais__container {
         grid-template-columns: 1fr;
     }
+    
+    .logo-container {
+        gap: 0.5rem;
+    }
+    
+    .logo-text span {
+        font-size: 1rem;
+    }
+    
+    .logo-text small {
+        font-size: 0.6rem;
+    }
 }
 
 @media screen and (max-width: 350px) {
@@ -732,5 +772,11 @@ img {
     .button {
         width: 100%;
         justify-content: center;
+    }
+    
+    .logo-container {
+        flex-direction: column;
+        gap: 0.25rem;
+        text-align: center;
     }
 }
