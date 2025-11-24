@@ -3,38 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Previdência - Advocacia Previdenciária</title>
-    <!-- CORREÇÃO DO CAMINHO DO CSS -->
+    <title>Calculadora de Previdência - Dr. Reginaldo Oliveira</title>
+    <meta name="description" content="Calculadora previdenciária completa para simular aposentadorias e benefícios do INSS. Simule sua aposentadoria por idade, tempo de contribuição e outros benefícios.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+    
+    <!-- Meta Tags para SEO -->
+    <meta name="keywords" content="calculadora previdenciária, aposentadoria, INSS, tempo de contribuição, benefício previdenciário, simulador aposentadoria">
+    <meta name="author" content="Dr. Reginaldo Oliveira">
+    <meta name="robots" content="index, follow">
+    
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header ORIGINAL - mantendo seu menu completo -->
+    <!-- Header - Mantendo a mesma estrutura da página inicial -->
     <header class="header">
         <nav class="nav container">
-            <div class="logo-container">
-                <div class="logo-icon">
-                    <i class="fas fa-balance-scale"></i>
+            <a href="index.html" class="nav__logo">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span>Dr. Reginaldo Oliveira</span>
+                        <small>OAB/SC 57.879</small>
+                    </div>
                 </div>
-                <div class="logo-text">
-                    <span>ADVOCACIA</span>
-                    <small>Previdenciária Especializada</small>
-                </div>
-            </div>
-
-            <div class="nav__menu">
+            </a>
+            
+            <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
-                    <li><a href="index.html" class="nav__link">Início</a></li>
-                    <li><a href="sobre.html" class="nav__link">Sobre</a></li>
-                    <li><a href="atuacao.html" class="nav__link">Atuação</a></li>
-                    <li><a href="calculadora.html" class="nav__link active">Calculadora</a></li>
-                    <li><a href="blog.html" class="nav__link">Blog</a></li>
-                    <li><a href="contato.html" class="nav__link">Contato</a></li>
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">Início</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#sobre" class="nav__link">Sobre</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#atuacao" class="nav__link">Atuação</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="calculadora.html" class="nav__link active">Calculadora</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#diferenciais" class="nav__link">Diferenciais</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="blog.html" class="nav__link">Artigos</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="index.html#contato" class="nav__link">Contato</a>
+                    </li>
                 </ul>
+                
+                <div class="nav__close" id="nav-close">
+                    <i class="fas fa-times"></i>
+                </div>
             </div>
-
-            <div class="nav__toggle">
+            
+            <div class="nav__toggle" id="nav-toggle">
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
@@ -44,9 +76,9 @@
     <section class="calculator-hero">
         <div class="container">
             <h1 class="calculator-hero__title">Calculadora de Previdência</h1>
-            <p class="calculator-hero__subtitle">Simule sua aposentadoria</p>
+            <p class="calculator-hero__subtitle">Simule seus benefícios previdenciários</p>
             <p class="calculator-hero__description">
-                Descubra quando e como você pode se aposentar com base nas regras atuais da previdência.
+                Descubra quando e como você pode se aposentar ou receber benefícios do INSS com base nas regras atuais da previdência.
             </p>
             <div class="calculator-hero__features">
                 <div class="feature">
@@ -85,21 +117,83 @@
                 <div class="calculator-steps">
                     <div class="step active" data-step="1">
                         <div class="step-number">1</div>
-                        <div class="step-text">Dados Pessoais</div>
+                        <div class="step-text">Tipo de Benefício</div>
                     </div>
                     <div class="step" data-step="2">
                         <div class="step-number">2</div>
-                        <div class="step-text">Informações Profissionais</div>
+                        <div class="step-text">Dados Pessoais</div>
                     </div>
                     <div class="step" data-step="3">
                         <div class="step-number">3</div>
+                        <div class="step-text">Informações Profissionais</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
                         <div class="step-text">Resultado</div>
                     </div>
                 </div>
 
                 <form id="calculatorForm" class="calculator-form">
-                    <!-- Step 1 -->
+                    <!-- Step 1 - Seleção do Tipo de Benefício -->
                     <div class="form-step active" data-step="1">
+                        <h3 class="form-step__title">Qual benefício você gostaria de simular?</h3>
+                        <div class="benefit-selection">
+                            <div class="benefit-options">
+                                <div class="benefit-option" data-benefit="age">
+                                    <div class="benefit-icon">
+                                        <i class="fas fa-user-clock"></i>
+                                    </div>
+                                    <h4>Aposentadoria por Idade</h4>
+                                    <p>Simule sua aposentadoria com base na sua idade</p>
+                                </div>
+                                <div class="benefit-option" data-benefit="contribution">
+                                    <div class="benefit-icon">
+                                        <i class="fas fa-hourglass-half"></i>
+                                    </div>
+                                    <h4>Aposentadoria por Tempo de Contribuição</h4>
+                                    <p>Calcule com base no seu tempo de contribuição</p>
+                                </div>
+                                <div class="benefit-option" data-benefit="disability">
+                                    <div class="benefit-icon">
+                                        <i class="fas fa-heartbeat"></i>
+                                    </div>
+                                    <h4>Auxílio-Doença</h4>
+                                    <p>Simule o benefício por incapacidade temporária</p>
+                                </div>
+                                <div class="benefit-option" data-benefit="pension">
+                                    <div class="benefit-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <h4>Pensão por Morte</h4>
+                                    <p>Calcule o valor da pensão para dependentes</p>
+                                </div>
+                                <div class="benefit-option" data-benefit="bpc">
+                                    <div class="benefit-icon">
+                                        <i class="fas fa-wheelchair"></i>
+                                    </div>
+                                    <h4>BPC/LOAS</h4>
+                                    <p>Benefício de Prestação Continuada</p>
+                                </div>
+                                <div class="benefit-option" data-benefit="special">
+                                    <div class="benefit-icon">
+                                        <i class="fas fa-hard-hat"></i>
+                                    </div>
+                                    <h4>Aposentadoria Especial</h4>
+                                    <p>Para atividades insalubres ou perigosas</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div></div>
+                            <button type="button" class="button button--primary next-step" data-next="2" disabled id="nextStep1">
+                                Próximo
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 - Dados Pessoais -->
+                    <div class="form-step" data-step="2">
                         <h3 class="form-step__title">Dados Pessoais</h3>
                         <div class="form-grid">
                             <div class="form-group">
@@ -115,17 +209,34 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="maritalStatus">Estado Civil</label>
+                            <select id="maritalStatus" name="maritalStatus">
+                                <option value="">Selecione</option>
+                                <option value="single">Solteiro(a)</option>
+                                <option value="married">Casado(a)</option>
+                                <option value="divorced">Divorciado(a)</option>
+                                <option value="widowed">Viúvo(a)</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="dependentsGroup" style="display: none;">
+                            <label for="dependents">Número de Dependentes</label>
+                            <input type="number" id="dependents" name="dependents" min="0" max="10" value="0">
+                        </div>
                         <div class="form-actions">
-                            <div></div>
-                            <button type="button" class="button button--primary next-step" data-next="2">
+                            <button type="button" class="button button--secondary prev-step" data-prev="1">
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button type="button" class="button button--primary next-step" data-next="3">
                                 Próximo
                                 <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Step 2 -->
-                    <div class="form-step" data-step="2">
+                    <!-- Step 3 - Informações Profissionais -->
+                    <div class="form-step" data-step="3">
                         <h3 class="form-step__title">Informações Profissionais</h3>
                         <div class="form-grid">
                             <div class="form-group">
@@ -137,15 +248,6 @@
                                 <input type="number" id="salary" name="salary" min="1300" max="7500" step="0.01" placeholder="Ex: 3000,00" required>
                                 <small>Informe um valor entre R$ 1.300,00 e R$ 7.500,00</small>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="contributionType">Tipo de Contribuição *</label>
-                            <select id="contributionType" name="contributionType" required>
-                                <option value="">Selecione</option>
-                                <option value="age">Por Idade</option>
-                                <option value="time">Por Tempo de Contribuição</option>
-                                <option value="mixed">Regra de Transição</option>
-                            </select>
                         </div>
                         <div class="form-group" id="specialPeriodsGroup" style="display: none;">
                             <label>Períodos Especiais</label>
@@ -167,8 +269,20 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="form-group" id="disabilityInfoGroup" style="display: none;">
+                            <label for="disabilityStart">Data de Início da Incapacidade</label>
+                            <input type="date" id="disabilityStart" name="disabilityStart">
+                        </div>
+                        <div class="form-group" id="pensionInfoGroup" style="display: none;">
+                            <label for="deceasedSalary">Salário do Falecido (R$)</label>
+                            <input type="number" id="deceasedSalary" name="deceasedSalary" min="1300" max="7500" step="0.01" placeholder="Ex: 3000,00">
+                        </div>
+                        <div class="form-group" id="bpcInfoGroup" style="display: none;">
+                            <label for="familyIncome">Renda Familiar Mensal (R$)</label>
+                            <input type="number" id="familyIncome" name="familyIncome" min="0" step="0.01" placeholder="Ex: 1500,00">
+                        </div>
                         <div class="form-actions">
-                            <button type="button" class="button button--secondary prev-step" data-prev="1">
+                            <button type="button" class="button button--secondary prev-step" data-prev="2">
                                 <i class="fas fa-arrow-left"></i>
                                 Anterior
                             </button>
@@ -179,8 +293,8 @@
                         </div>
                     </div>
 
-                    <!-- Step 3 -->
-                    <div class="form-step" data-step="3">
+                    <!-- Step 4 - Resultado -->
+                    <div class="form-step" data-step="4">
                         <h3 class="form-step__title">Resultado da Simulação</h3>
                         
                         <div class="results-container">
@@ -217,6 +331,10 @@
                             <h4>Detalhes da Simulação</h4>
                             <div class="details-grid">
                                 <div class="detail-item">
+                                    <span>Benefício:</span>
+                                    <strong id="detailBenefit">--</strong>
+                                </div>
+                                <div class="detail-item">
                                     <span>Regra Aplicada:</span>
                                     <strong id="detailRule">--</strong>
                                 </div>
@@ -232,6 +350,10 @@
                                     <span>Salário Base:</span>
                                     <strong id="detailBaseSalary">--</strong>
                                 </div>
+                                <div class="detail-item" id="detailDependentsItem" style="display: none;">
+                                    <span>Dependentes:</span>
+                                    <strong id="detailDependents">--</strong>
+                                </div>
                             </div>
                         </div>
 
@@ -240,11 +362,11 @@
                                 <h4>Precisa de ajuda especializada?</h4>
                                 <p>Nossos especialistas em previdência podem te ajudar a entender melhor suas opções e planejar sua aposentadoria.</p>
                                 <div class="cta-buttons">
-                                    <a href="#" class="button button--secondary">
+                                    <a href="https://wa.me/5571996510966?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20sobre%20minha%20aposentadoria" class="button button--secondary" target="_blank">
                                         <i class="fas fa-whatsapp"></i>
                                         Falar no WhatsApp
                                     </a>
-                                    <a href="#" class="button button--primary">
+                                    <a href="index.html#contato" class="button button--primary">
                                         <i class="fas fa-phone-alt"></i>
                                         Agendar Consulta
                                     </a>
@@ -253,7 +375,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <button type="button" class="button button--secondary prev-step" data-prev="2">
+                            <button type="button" class="button button--secondary prev-step" data-prev="3">
                                 <i class="fas fa-arrow-left"></i>
                                 Voltar
                             </button>
@@ -275,74 +397,85 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h3>Como a calculadora funciona?</h3>
-                    <p>A calculadora simula sua aposentadoria com base nas regras atuais da previdência, considerando seus dados pessoais e profissionais.</p>
+                    <p>A calculadora simula seu benefício previdenciário com base nas regras atuais da previdência, considerando seus dados pessoais e profissionais.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Os resultados são precisos?</h3>
-                    <p>Os resultados são estimativas baseadas nas regras atuais. Para uma análise precisa, consulte um especialista.</p>
+                    <p>Os resultados são estimativas baseadas nas regras atuais. Para uma análise precisa, consulte um especialista em direito previdenciário.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Quais regras são consideradas?</h3>
-                    <p>Consideramos as regras de aposentadoria por idade, tempo de contribuição e as regras de transição.</p>
+                    <h3>Quais benefícios posso simular?</h3>
+                    <p>A calculadora permite simular aposentadoria por idade, tempo de contribuição, auxílio-doença, pensão por morte, BPC/LOAS e aposentadoria especial.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer ORIGINAL -->
+    <!-- Footer - Mantendo a mesma estrutura da página inicial -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer__container">
-                <div>
-                    <a href="#" class="footer__logo">ADVOCACIA</a>
-                    <p class="footer__description">
-                        Especialistas em direito previdenciário, trabalhando para garantir seus direitos.
-                    </p>
-                </div>
-                <div>
-                    <h3 class="footer__title">Links Rápidos</h3>
-                    <ul class="footer__links">
-                        <li><a href="index.html" class="footer__link">Início</a></li>
-                        <li><a href="sobre.html" class="footer__link">Sobre</a></li>
-                        <li><a href="atuacao.html" class="footer__link">Atuação</a></li>
-                        <li><a href="calculadora.html" class="footer__link">Calculadora</a></li>
-                        <li><a href="blog.html" class="footer__link">Blog</a></li>
-                        <li><a href="contato.html" class="footer__link">Contato</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="footer__title">Contato</h3>
-                    <ul class="footer__contact">
-                        <li>
-                            <i class="fas fa-phone footer__contact-icon"></i>
-                            <span>(11) 9999-9999</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope footer__contact-icon"></i>
-                            <span>contato@advocacia.com</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-map-marker-alt footer__contact-icon"></i>
-                            <span>São Paulo, SP</span>
-                        </li>
-                    </ul>
-                </div>
+        <div class="footer__container container grid">
+            <div class="footer__content">
+                <a href="index.html" class="footer__logo">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <div class="logo-text">
+                            <span>Dr. Reginaldo Oliveira</span>
+                        </div>
+                    </div>
+                </a>
+                <p class="footer__description">
+                    Advogado especialista em Direito Previdenciário. 
+                    Defendendo seus direitos com excelência e compromisso.
+                </p>
             </div>
-            <p class="footer__copy">&copy; 2024 Advocacia. Todos os direitos reservados.</p>
+            
+            <div class="footer__content">
+                <h3 class="footer__title">Navegação</h3>
+                <ul class="footer__links">
+                    <li><a href="index.html" class="footer__link">Início</a></li>
+                    <li><a href="index.html#sobre" class="footer__link">Sobre</a></li>
+                    <li><a href="index.html#atuacao" class="footer__link">Atuação</a></li>
+                    <li><a href="blog.html" class="footer__link">Artigos</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer__content">
+                <h3 class="footer__title">Contato</h3>
+                <ul class="footer__contact">
+                    <li>
+                        <i class="fas fa-phone footer__contact-icon"></i>
+                        (71) 99651-0966
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope footer__contact-icon"></i>
+                        contato@juridicamente.blog
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt footer__contact-icon"></i>
+                        Atendimento em Todo Brasil
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer__copy">
+            <p>&copy; 2024 Dr. Reginaldo Oliveira - OAB/SC 57.879. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <!-- WhatsApp Float -->
-    <a href="#" class="whatsapp-float">
+    <a href="https://wa.me/5571996510966?text=Olá,%20gostaria%20de%20agendar%20uma%20consulta%20com%20o%20Dr.%20Reginaldo%20Oliveira" class="whatsapp-float" target="_blank" aria-label="Entre em contato pelo WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- JavaScript ORIGINAL da calculadora -->
     <script>
-        // Calculator JavaScript - CÓDIGO ORIGINAL
+        // Calculator JavaScript - Versão Completa
         class PrevidenciaCalculator {
             constructor() {
                 this.currentStep = 1;
+                this.selectedBenefit = null;
                 this.formData = {};
                 this.init();
             }
@@ -353,6 +486,18 @@
             }
 
             bindEvents() {
+                // Benefit selection
+                document.querySelectorAll('.benefit-option').forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        document.querySelectorAll('.benefit-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        option.classList.add('selected');
+                        this.selectedBenefit = option.getAttribute('data-benefit');
+                        document.getElementById('nextStep1').disabled = false;
+                    });
+                });
+
                 // Next step buttons
                 document.querySelectorAll('.next-step').forEach(btn => {
                     btn.addEventListener('click', (e) => {
@@ -374,10 +519,10 @@
 
                 // Calculate button
                 document.querySelector('.calculate-btn').addEventListener('click', () => {
-                    if (this.validateStep(2)) {
-                        this.saveStepData(2);
+                    if (this.validateStep(3)) {
+                        this.saveStepData(3);
                         this.calculate();
-                        this.showStep(3);
+                        this.showStep(4);
                     }
                 });
 
@@ -386,15 +531,44 @@
                     this.resetCalculator();
                 });
 
-                // Show/hide special periods based on contribution type
-                document.getElementById('contributionType').addEventListener('change', (e) => {
-                    const specialPeriodsGroup = document.getElementById('specialPeriodsGroup');
-                    if (e.target.value === 'mixed') {
-                        specialPeriodsGroup.style.display = 'block';
+                // Show/hide fields based on benefit type
+                document.getElementById('maritalStatus').addEventListener('change', (e) => {
+                    const dependentsGroup = document.getElementById('dependentsGroup');
+                    if (e.target.value === 'married' || e.target.value === 'widowed') {
+                        dependentsGroup.style.display = 'block';
                     } else {
-                        specialPeriodsGroup.style.display = 'none';
+                        dependentsGroup.style.display = 'none';
                     }
                 });
+
+                // Show/hide special fields based on benefit type
+                document.addEventListener('change', () => {
+                    this.updateFormFields();
+                });
+            }
+
+            updateFormFields() {
+                const specialPeriodsGroup = document.getElementById('specialPeriodsGroup');
+                const disabilityInfoGroup = document.getElementById('disabilityInfoGroup');
+                const pensionInfoGroup = document.getElementById('pensionInfoGroup');
+                const bpcInfoGroup = document.getElementById('bpcInfoGroup');
+
+                // Reset all
+                specialPeriodsGroup.style.display = 'none';
+                disabilityInfoGroup.style.display = 'none';
+                pensionInfoGroup.style.display = 'none';
+                bpcInfoGroup.style.display = 'none';
+
+                // Show relevant fields based on selected benefit
+                if (this.selectedBenefit === 'special') {
+                    specialPeriodsGroup.style.display = 'block';
+                } else if (this.selectedBenefit === 'disability') {
+                    disabilityInfoGroup.style.display = 'block';
+                } else if (this.selectedBenefit === 'pension') {
+                    pensionInfoGroup.style.display = 'block';
+                } else if (this.selectedBenefit === 'bpc') {
+                    bpcInfoGroup.style.display = 'block';
+                }
             }
 
             showStep(step) {
@@ -423,6 +597,14 @@
                 
                 let isValid = true;
 
+                // For step 1, we need to check if a benefit was selected
+                if (step === 1) {
+                    if (!this.selectedBenefit) {
+                        this.showError('Selecione um tipo de benefício para continuar');
+                        isValid = false;
+                    }
+                }
+
                 inputs.forEach(input => {
                     if (!input.value) {
                         input.classList.add('error');
@@ -432,16 +614,23 @@
                     }
                 });
 
-                // Additional validations for step 1
-                if (step === 1) {
+                // Additional validations for step 2
+                if (step === 2) {
                     const birthDate = new Date(document.getElementById('birthDate').value);
-                    const startWork = new Date(document.getElementById('startWork').value);
                     const today = new Date();
 
                     if (birthDate >= today) {
                         this.showError('Data de nascimento não pode ser futura');
                         isValid = false;
                     }
+                }
+
+                // Additional validations for step 3
+                if (step === 3) {
+                    const birthDate = new Date(document.getElementById('birthDate').value);
+                    const startWork = new Date(document.getElementById('startWork').value);
+                    const today = new Date();
+                    const salary = parseFloat(document.getElementById('salary').value);
 
                     if (startWork >= today) {
                         this.showError('Data de início não pode ser futura');
@@ -452,11 +641,7 @@
                         this.showError('Data de início não pode ser anterior ao nascimento');
                         isValid = false;
                     }
-                }
 
-                // Additional validations for step 2
-                if (step === 2) {
-                    const salary = parseFloat(document.getElementById('salary').value);
                     if (salary < 1300 || salary > 7500) {
                         this.showError('Salário deve estar entre R$ 1.300,00 e R$ 7.500,00');
                         isValid = false;
@@ -506,6 +691,11 @@
                         this.formData[input.name] = input.value;
                     }
                 });
+
+                // Save selected benefit
+                if (step === 1) {
+                    this.formData.benefitType = this.selectedBenefit;
+                }
             }
 
             calculate() {
@@ -513,51 +703,88 @@
                 const startWork = new Date(this.formData.startWork);
                 const salary = parseFloat(this.formData.salary);
                 const gender = this.formData.gender;
-                const contributionType = this.formData.contributionType;
+                const benefitType = this.formData.benefitType;
+                const dependents = parseInt(this.formData.dependents) || 0;
 
                 const today = new Date();
                 const currentAge = this.calculateAge(birthDate, today);
                 const contributedTime = this.calculateTimeDifference(startWork, today);
 
-                let resultAge, resultTimeLeft, resultValue, detailRule;
+                let resultAge, resultTimeLeft, resultValue, detailRule, benefitName;
 
-                // Calculate based on contribution type
-                switch (contributionType) {
+                // Calculate based on benefit type
+                switch (benefitType) {
                     case 'age':
+                        benefitName = 'Aposentadoria por Idade';
                         resultAge = gender === 'male' ? 65 : 62;
                         resultTimeLeft = Math.max(0, resultAge - currentAge);
                         resultValue = this.calculateAgeRetirementValue(salary, gender);
-                        detailRule = 'Aposentadoria por Idade';
+                        detailRule = 'Idade mínima: ' + (gender === 'male' ? '65 anos' : '62 anos');
                         break;
 
-                    case 'time':
-                        const requiredTime = gender === 'male' ? 40 : 35;
+                    case 'contribution':
+                        benefitName = 'Aposentadoria por Tempo de Contribuição';
+                        const requiredTime = gender === 'male' ? 35 : 30;
                         resultAge = currentAge + Math.max(0, requiredTime - contributedTime.years);
                         resultTimeLeft = Math.max(0, requiredTime - contributedTime.years);
                         resultValue = this.calculateTimeRetirementValue(salary, contributedTime.years);
-                        detailRule = 'Aposentadoria por Tempo de Contribuição';
+                        detailRule = 'Tempo mínimo: ' + requiredTime + ' anos';
                         break;
 
-                    case 'mixed':
-                        const mixedAge = gender === 'male' ? 65 : 62;
-                        const mixedTime = gender === 'male' ? 40 : 35;
-                        resultAge = Math.max(mixedAge, currentAge + Math.max(0, mixedTime - contributedTime.years));
-                        resultTimeLeft = Math.max(0, mixedAge - currentAge, mixedTime - contributedTime.years);
-                        resultValue = this.calculateMixedRetirementValue(salary, gender, contributedTime.years);
-                        detailRule = 'Regra de Transição';
+                    case 'disability':
+                        benefitName = 'Auxílio-Doença';
+                        resultAge = '-';
+                        resultTimeLeft = '-';
+                        resultValue = this.calculateDisabilityValue(salary);
+                        detailRule = 'Carência de 12 meses e incapacidade comprovada';
+                        break;
+
+                    case 'pension':
+                        benefitName = 'Pensão por Morte';
+                        resultAge = '-';
+                        resultTimeLeft = '-';
+                        const deceasedSalary = parseFloat(this.formData.deceasedSalary) || salary;
+                        resultValue = this.calculatePensionValue(deceasedSalary, dependents);
+                        detailRule = 'Baseado no salário do falecido e número de dependentes';
+                        break;
+
+                    case 'bpc':
+                        benefitName = 'BPC/LOAS';
+                        resultAge = '-';
+                        resultTimeLeft = '-';
+                        resultValue = this.calculateBPCValue();
+                        detailRule = 'Renda familiar per capita inferior a 1/4 do salário mínimo';
+                        break;
+
+                    case 'special':
+                        benefitName = 'Aposentadoria Especial';
+                        resultAge = currentAge + Math.max(0, 25 - contributedTime.years);
+                        resultTimeLeft = Math.max(0, 25 - contributedTime.years);
+                        resultValue = this.calculateSpecialRetirementValue(salary);
+                        detailRule = '25 anos de atividade especial';
                         break;
                 }
 
                 // Update results in DOM
                 this.updateResults({
-                    resultAge: resultAge + ' anos',
-                    resultTimeLeft: resultTimeLeft + ' anos',
-                    resultValue: 'R$ ' + resultValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+                    resultAge: resultAge + (resultAge !== '-' ? ' anos' : ''),
+                    resultTimeLeft: resultTimeLeft + (resultTimeLeft !== '-' ? ' anos' : ''),
+                    resultValue: 'R$ ' + (typeof resultValue === 'number' ? resultValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : resultValue),
+                    detailBenefit: benefitName,
                     detailRule: detailRule,
                     detailCurrentAge: currentAge + ' anos',
                     detailContributedTime: contributedTime.years + ' anos e ' + contributedTime.months + ' meses',
                     detailBaseSalary: 'R$ ' + salary.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                 });
+
+                // Show dependents if applicable
+                const dependentsItem = document.getElementById('detailDependentsItem');
+                if (benefitType === 'pension' && dependents > 0) {
+                    document.getElementById('detailDependents').textContent = dependents;
+                    dependentsItem.style.display = 'flex';
+                } else {
+                    dependentsItem.style.display = 'none';
+                }
             }
 
             calculateAge(birthDate, currentDate) {
@@ -584,17 +811,27 @@
             }
 
             calculateAgeRetirementValue(salary, gender) {
-                // Simplified calculation - in reality, this would be more complex
-                const baseValue = salary * 0.7; // 70% of salary
-                return Math.min(baseValue, 7500); // Cap at maximum benefit
+                // 70% do salário de benefício + 1% por ano de contribuição acima de 15 anos (mulheres) ou 20 anos (homens)
+                const baseYears = gender === 'male' ? 20 : 15;
+                let percentage = 0.7;
+                
+                const contributedYears = this.calculateTimeDifference(new Date(this.formData.startWork), new Date()).years;
+                if (contributedYears > baseYears) {
+                    percentage += (contributedYears - baseYears) * 0.01;
+                }
+                
+                percentage = Math.min(percentage, 1.0); // Cap at 100%
+                
+                return Math.min(salary * percentage, 7500); // Cap at maximum benefit
             }
 
             calculateTimeRetirementValue(salary, contributedYears) {
-                // Progressive calculation based on contribution time
-                let percentage = 0.6; // Base 60%
+                // 60% + 2% por ano acima de 15 anos (mulheres) ou 20 anos (homens)
+                const baseYears = this.formData.gender === 'male' ? 20 : 15;
+                let percentage = 0.6;
                 
-                if (contributedYears > 15) {
-                    percentage += (contributedYears - 15) * 0.02; // +2% per year above 15
+                if (contributedYears > baseYears) {
+                    percentage += (contributedYears - baseYears) * 0.02;
                 }
                 
                 percentage = Math.min(percentage, 1.0); // Cap at 100%
@@ -602,12 +839,27 @@
                 return salary * percentage;
             }
 
-            calculateMixedRetirementValue(salary, gender, contributedYears) {
-                // Mixed rule calculation
-                const ageFactor = gender === 'male' ? 0.75 : 0.8;
-                const timeFactor = Math.min(0.6 + (contributedYears * 0.01), 1.0);
+            calculateDisabilityValue(salary) {
+                // 91% do salário de benefício
+                return salary * 0.91;
+            }
+
+            calculatePensionValue(salary, dependents) {
+                // 50% do salário do falecido + 10% por dependente (até 100%)
+                let percentage = 0.5 + (dependents * 0.1);
+                percentage = Math.min(percentage, 1.0); // Cap at 100%
                 
-                return salary * Math.max(ageFactor, timeFactor);
+                return salary * percentage;
+            }
+
+            calculateBPCValue() {
+                // Valor fixo do BPC (1 salário mínimo)
+                return 1412.00; // Valor aproximado do salário mínimo em 2024
+            }
+
+            calculateSpecialRetirementValue(salary) {
+                // 100% do salário de benefício para aposentadoria especial
+                return salary;
             }
 
             updateResults(results) {
@@ -623,11 +875,23 @@
                 // Reset form
                 document.getElementById('calculatorForm').reset();
                 
+                // Reset benefit selection
+                document.querySelectorAll('.benefit-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                this.selectedBenefit = null;
+                document.getElementById('nextStep1').disabled = true;
+                
                 // Reset form data
                 this.formData = {};
                 
-                // Hide special periods
+                // Hide all special fields
                 document.getElementById('specialPeriodsGroup').style.display = 'none';
+                document.getElementById('disabilityInfoGroup').style.display = 'none';
+                document.getElementById('pensionInfoGroup').style.display = 'none';
+                document.getElementById('bpcInfoGroup').style.display = 'none';
+                document.getElementById('dependentsGroup').style.display = 'none';
+                document.getElementById('detailDependentsItem').style.display = 'none';
                 
                 // Go back to first step
                 this.showStep(1);
@@ -643,5 +907,62 @@
             new PrevidenciaCalculator();
         });
     </script>
+
+    <style>
+        /* Estilos adicionais para a calculadora */
+        .benefit-selection {
+            margin-bottom: 2rem;
+        }
+
+        .benefit-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .benefit-option {
+            background: var(--container-color);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .benefit-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .benefit-option.selected {
+            border-color: var(--secondary-color);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-option h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .benefit-option p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        @media screen and (max-width: 768px) {
+            .benefit-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </body>
 </html>
