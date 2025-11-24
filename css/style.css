@@ -162,21 +162,21 @@ img {
 
 .logo-text span {
     font-weight: var(--font-bold);
-    color: var(--primary-color);
+    color: var(--white-color); /* Alterado para branco */
     font-size: 1.1rem;
     line-height: 1.2;
 }
 
 .logo-text small {
     font-size: 0.7rem;
-    color: var(--text-light);
+    color: rgba(255, 255, 255, 0.8); /* Alterado para branco com transparência */
     font-weight: var(--font-regular);
 }
 
 /* ===== HEADER ===== */
 .header {
     width: 100%;
-    background-color: var(--container-color);
+    background-color: var(--primary-color); /* Alterado para azul */
     position: fixed;
     top: 0;
     left: 0;
@@ -192,7 +192,7 @@ img {
 }
 
 .nav__logo {
-    color: var(--primary-color);
+    color: var(--white-color); /* Alterado para branco */
 }
 
 .nav__menu {
@@ -205,14 +205,14 @@ img {
 }
 
 .nav__link {
-    color: var(--text-color);
+    color: var(--white-color); /* Alterado para branco */
     font-weight: var(--font-medium);
     transition: color 0.3s;
     position: relative;
 }
 
 .nav__link:hover {
-    color: var(--primary-color);
+    color: var(--secondary-color); /* Alterado para dourado no hover */
 }
 
 .nav__link::after {
@@ -220,7 +220,7 @@ img {
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     bottom: -5px;
     left: 0;
     transition: width 0.3s;
@@ -234,6 +234,7 @@ img {
     display: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: var(--white-color); /* Alterado para branco */
 }
 
 /* ===== HOME ===== */
@@ -696,7 +697,7 @@ img {
         top: -100%;
         left: 0;
         width: 100%;
-        background-color: var(--container-color);
+        background-color: var(--primary-color);
         padding: 3rem 0 2rem;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         transition: top 0.4s;
@@ -779,4 +780,32 @@ img {
         gap: 0.25rem;
         text-align: center;
     }
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.scroll-header {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.active-link {
+    color: var(--secondary-color) !important;
+}
+
+.active-link::after {
+    width: 100% !important;
 }
